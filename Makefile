@@ -327,11 +327,6 @@ appdata: persistence/app
 	rm -fr persistence/app
 	mv persistence/source persistence/app
 
-.PHONY : watch
-watch:
-	@echo "Running Planet 4 application script..."
-	./watch.sh
-
 .PHONY : stop
 stop:
 	./stop.sh
@@ -408,6 +403,19 @@ flush:
 .PHONY: php-shell
 php-shell:
 	@docker-compose exec php-fpm bash
+
+.PHONY: installnpm
+installnpm:
+  # Update packages
+	docker-compose exec php-fpm apt update
+	# Install NPM
+	docker-compose exec php-fpm apt install npm -y
+	# Update Node version
+	docker-compose exec php-fpm sh -c 'npm cache clean -f && npm install -g n && n stable'
+
+.PHONY: watch
+watch:
+	docker-compose exec -T php-fpm /app/source/tasks/post-deploy/04-watch.sh
 
 .PHONY: revertdb
 revertdb:
