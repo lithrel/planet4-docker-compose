@@ -209,6 +209,7 @@ repos:
 	rm -fr persistence/app/public/wp-content/plugins/planet4-plugin-gutenberg-blocks
 	rm -fr persistence/app/public/wp-content/plugins/planet4-plugin-gutenberg-engagingnetworks
 	@./repos.sh
+	docker-compose exec -T php-fpm /app/source/tasks/post-deploy/04-install-deps.sh
 
 dev-install-xdebug:
 ifeq (Darwin, $(shell uname -s))
@@ -415,7 +416,7 @@ installnpm:
 
 .PHONY: watch
 watch:
-	docker-compose exec -T php-fpm /app/source/tasks/post-deploy/04-watch.sh
+	docker-compose exec -T php-fpm /app/source/tasks/post-deploy/05-watch.sh
 
 .PHONY: revertdb
 revertdb:
