@@ -200,7 +200,7 @@ run:
 # DEVELOPER ENVIRONMENT
 
 .PHONY: dev
-dev: hosts run unzipimages config repos elastic flush status
+dev: hosts run unzipimages config installnpm repos elastic flush status
 	@echo "Ready"
 
 .PHONY: repos
